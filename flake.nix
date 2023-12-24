@@ -26,7 +26,7 @@
           runtimeInputs = [ pkgs.nix ];
           text = ''
             PREV_REV=$1
-            PREV_OUTPATH=$(nix eval ".?rev=''${PREV_REV}#print-version.drv.outPath")
+            PREV_OUTPATH=$(nix eval --raw ".?rev=''${PREV_REV}#print-version.drv.outPath")
             CUR_OUTPATH=${drv.outPath}
             echo "$PREV_OUTPATH"
             echo "$CUR_OUTPATH"
