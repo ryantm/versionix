@@ -22,14 +22,14 @@
       .overrideAttrs (_: _: {
         passthru = {
           inherit drv;
-          unchanged = pkgs.writeShellApplication {
+          didChange = pkgs.writeShellApplication {
             name = "did-change";
             runtimeInputs = [pkgs.nix];
             text = ''
               PREV_REV=$1
               PREV_OUTPATH=$(nix eval --raw ".?rev=''${PREV_REV}#${attrpath}.drv.outPath")
               CUR_OUTPATH=${drv.outPath}
-              test "$PREV_OUTPATH" = "$CUR_OUTPATH"
+              test ! "$PREV_OUTPATH" = "$CUR_OUTPATH"
             '';
           };
         };
