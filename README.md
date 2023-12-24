@@ -8,7 +8,7 @@ Provide a git-based rev version to binaries via the VERSION environment variable
 {
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
   inputs.systems.url = "github:nix-systems/default";
-  inputs.versionix.url = "/home/ryantm/p/versionix";
+  inputs.versionix.url = "github:ryantm/versionix";
   outputs = {
     self,
     nixpkgs,
@@ -19,12 +19,16 @@ Provide a git-based rev version to binaries via the VERSION environment variable
   in {
     packages = eachSystem (system: rec {
       default = print-version;
-      print-version = versionix.lib.versionix self "print-version" (nixpkgs.legacyPackages.${system}.writeShellApplication {
-        name = "print-version";
-        text = ''
-          echo "$VERSION"
-        '';
-      });
+      print-version = versionix.lib.versionix {
+        inherit nixpkgs self;
+        attrpath = "print-version";
+        unwrapped = (nixpkgs.legacyPackages.${system}.writeShellApplication {
+            name = "print-version";
+            text = ''
+              echo "$VERSION"
+            '';
+        });
+      };
     });
   };
 }
