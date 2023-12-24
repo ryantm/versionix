@@ -22,7 +22,7 @@
       .overrideAttrs (_: _: {
         passthru = {
           inherit drv;
-          didChange = pkgs.writeShellApplication {
+          unchanged = pkgs.writeShellApplication {
             name = "did-change";
             runtimeInputs = [pkgs.nix];
             text = ''
