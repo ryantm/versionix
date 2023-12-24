@@ -25,6 +25,7 @@
         name = "print-version";
         text = ''
           echo "$VERSION"
+          echo "$VERSION"
         '';
       });
     });
