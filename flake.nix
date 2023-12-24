@@ -14,7 +14,7 @@
         name = unwrapped.name;
         text = ''
           export VERSION="${rev}"
-          ${unwrapped}/bin/${unwrapped.meta.mainProgram}
+          exec "${unwrapped}/bin/${unwrapped.meta.mainProgram}" "$@"
         '';
       })
       .overrideAttrs (_: _: {
