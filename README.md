@@ -46,7 +46,8 @@ Checking if the unwrapped binary changed compared to a previous rev:
 ```
 nix run .#print-version.didChange 5881273bbf0beb55a8e1187b3ebbfce4e5d94e5c
 $ echo $?
-0
+1
 ```
 
-If the unwrapped binary's outPath is differnet from the outPath in the provided rev, the exit code is 0. If they are the same, the exit code is 1.
+If the unwrapped binary's outPath is different from the outPath in the provided rev, the exit code is 0.
+If they are the same, the exit code is 1.
