@@ -27,7 +27,7 @@
               OTHER_REV=$1
               OTHER_OUTPATH=$(nix eval --raw ".?rev=''${OTHER_REV}#${attrpath}.unwrapped.outPath")
               OUTPATH=${unwrapped.outPath}
-              test ! "$OTHER_OUTPATH" = "OUTPATH"
+              test ! "$OTHER_OUTPATH" = "$OUTPATH"
             '';
           };
         };
