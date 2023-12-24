@@ -22,12 +22,12 @@ Provide a git-based rev version to binaries via the VERSION environment variable
       print-version = versionix.lib.versionix {
         inherit nixpkgs self;
         attrpath = "print-version";
-        unwrapped = (nixpkgs.legacyPackages.${system}.writeShellApplication {
-            name = "print-version";
-            text = ''
-              echo "$VERSION"
-            '';
-        });
+        unwrapped = nixpkgs.legacyPackages.${system}.writeShellApplication {
+          name = "print-version";
+          text = ''
+            echo "$VERSION"
+          '';
+        };
       };
     });
   };
