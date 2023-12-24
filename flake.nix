@@ -29,8 +29,7 @@
               PREV_REV=$1
               PREV_OUTPATH=$(nix eval --raw ".?rev=''${PREV_REV}#${attrpath}.drv.outPath")
               CUR_OUTPATH=${drv.outPath}
-              echo "$PREV_OUTPATH"
-              echo "$CUR_OUTPATH"
+              test "$PREV_OUTPATH" = "$CUR_OUTPATH"
             '';
           };
         };
