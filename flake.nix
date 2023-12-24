@@ -43,6 +43,7 @@
         text = ''
           echo "$VERSION"
           echo "$VERSION"
+          echo "$VERSION"
         '';
       });
     });
