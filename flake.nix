@@ -6,27 +6,27 @@
       attrpath,
       unwrapped,
     }: let
-      pkgs = nixpkgs.legacyPackages.${drv.system};
+      pkgs = nixpkgs.legacyPackages.${unwrapped.system};
       long_rev = self.rev or "dirty";
       rev = "0.0.0-${builtins.substring 0 7 long_rev}";
     in
       (pkgs.writeShellApplication {
-        name = drv.name;
+        name = unwrapped.name;
         text = ''
           export VERSION="${rev}"
-          ${drv}/bin/${drv.meta.mainProgram}
+          ${unwrapped}/bin/${unwrapped.meta.mainProgram}
         '';
       })
       .overrideAttrs (_: _: {
         passthru = {
-          inherit drv;
+          inherit unwrapped;
           didChange = pkgs.writeShellApplication {
             name = "did-change";
             runtimeInputs = [pkgs.nix];
             text = ''
               OTHER_REV=$1
-              OTHER_OUTPATH=$(nix eval --raw ".?rev=''${OTHER_REV}#${attrpath}.drv.outPath")
-              OUTPATH=${drv.outPath}
+              OTHER_OUTPATH=$(nix eval --raw ".?rev=''${OTHER_REV}#${attrpath}.unwrapped.outPath")
+              OUTPATH=${unwrapped.outPath}
               test ! "$OTHER_OUTPATH" = "OUTPATH"
             '';
           };
